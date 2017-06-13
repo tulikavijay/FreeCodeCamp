@@ -1,0 +1,47 @@
+<html>
+  <head><link href="quote.css" type="text/css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <!--  <script src="quote.js"></script></head>-->
+    <body>
+      <div class="container">
+	<div class="quote">    Get Quotes Daily!<br>
+	  From a collection of  100 quotes.<br>
+	  Just Click on the New Quote button!
+	</div>
+	<div class="bar">
+	  <div class="icons"><span><a href="" id="link" target="_blank"><i class="fa fa-3x fa-twitter" aria-hidden="true"></i></a> Tweet it!</span></div>
+	<div class="newquote"><button>New Quote</button></div></div>
+      </div>
+      <script>
+	
+	const quote=document.querySelector(`.quote`);
+	const arr=[];
+        const url= "quote.json";
+	var no=0;
+
+        fetch(url).then(blob=>blob.json()).then(data=>arr.push(...data));
+        console.log(arr);
+
+	function getQuote(){
+
+         	 no=Math.floor((Math.random()*101)+1);
+               	quote.innerHTML=`"${arr[no]["quote"]}"- ${arr[no].name}`;
+	}
+
+	function tweet(){
+	console.log(this);
+	if(no!=0)
+{	this.setAttribute('href','https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text="'+`${arr[no]["quote"]}`+'"'+`${arr[no].name}`); 
+	}
+
+	}
+
+	window.document.querySelector(`button`).addEventListener('click',getQuote);
+
+        window.document.querySelector(`a`).addEventListener('click',tweet);
+
+	window.addEventListener('load',getQuote);
+
+	</script>
+    </body>
+</html>
